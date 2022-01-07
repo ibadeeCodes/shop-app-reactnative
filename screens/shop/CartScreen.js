@@ -6,7 +6,7 @@ import Colors from "../../constants/Colors"
 import CartItem from "../../components/shop/CartItem"
 import Card from "../../components/UI/Card"
 import * as cartActions from "../../store/actions/CartActions"
-// import * as ordersActions from "../../store/actions/orders"
+import * as ordersActions from "../../store/actions/OrderActions"
 
 const CartScreen = (props) => {
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount)

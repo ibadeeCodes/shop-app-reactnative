@@ -6,7 +6,7 @@ import { Provider } from "react-redux"
 import AppLoading from "expo-app-loading"
 import * as Font from "expo-font"
 
-import ShopNavigator from "./navigation/shopNavigator"
+import ShopNavigator from "./navigation/ShopNavigator"
 import ProductReducer from "./store/reducers/ProductReducer"
 import CartReducer from "./store/reducers/CartReducers"
 
