@@ -25,6 +25,7 @@ const defaultHeaderOptions = {
 
 const ProductsNavigator = createNativeStackNavigator()
 const OrdersNavigator = createNativeStackNavigator()
+const AdminNavigator = createNativeStackNavigator()
 const ShopDrawerNavigator = createDrawerNavigator()
 
 const ProductsNavigatorWrapper = () => {
@@ -53,15 +54,6 @@ const ProductsNavigatorWrapper = () => {
         component={CartScreen}
         options={{ title: "Cart" }}
       />
-
-      <ProductsNavigator.Screen
-        name="UserProducts"
-        component={UserProductsScreen}
-      />
-      <ProductsNavigator.Screen
-        name="EditProduct"
-        component={EditProductScreen}
-      />
     </ProductsNavigator.Navigator>
     // </NavigationContainer>
   )
@@ -77,6 +69,18 @@ const OrdersNavigatorWrapper = () => {
   )
 }
 
+const AdminNavigatorWrapper = () => {
+  return (
+    <AdminNavigator.Navigator screenOptions={defaultHeaderOptions}>
+      <AdminNavigator.Screen
+        name="UserProducts"
+        component={UserProductsScreen}
+      />
+      <AdminNavigator.Screen name="EditProduct" component={EditProductScreen} />
+    </AdminNavigator.Navigator>
+  )
+}
+
 const ShopNavigator = () => {
   return (
     <NavigationContainer>
@@ -88,6 +92,10 @@ const ShopNavigator = () => {
         <ShopDrawerNavigator.Screen
           name="Orders"
           component={OrdersNavigatorWrapper}
+        />
+        <ShopDrawerNavigator.Screen
+          name="Admin"
+          component={AdminNavigatorWrapper}
         />
       </ShopDrawerNavigator.Navigator>
     </NavigationContainer>
