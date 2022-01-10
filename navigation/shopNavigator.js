@@ -30,7 +30,6 @@ const ShopDrawerNavigator = createDrawerNavigator()
 
 const ProductsNavigatorWrapper = () => {
   return (
-    // <NavigationContainer>
     <ProductsNavigator.Navigator screenOptions={defaultHeaderOptions}>
       <ProductsNavigator.Screen
         name="ProductsOverview"
@@ -40,6 +39,15 @@ const ProductsNavigatorWrapper = () => {
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.push("Cart")}>
               <Ionicons name={"cart-outline"} size={23} color={"#fff"} />
+            </TouchableOpacity>
+          ),
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.openDrawer()
+              }}
+            >
+              <Ionicons name={"menu-outline"} size={28} color={"#fff"} />
             </TouchableOpacity>
           ),
         })}
@@ -55,17 +63,30 @@ const ProductsNavigatorWrapper = () => {
         options={{ title: "Cart" }}
       />
     </ProductsNavigator.Navigator>
-    // </NavigationContainer>
   )
 }
 
 const OrdersNavigatorWrapper = () => {
   return (
-    // <NavigationContainer>
     <OrdersNavigator.Navigator screenOptions={defaultHeaderOptions}>
-      <OrdersNavigator.Screen name="MyOrders" component={OrderScreen} />
+      <OrdersNavigator.Screen
+        name="MyOrders"
+        component={OrderScreen}
+        options={({ navigation }) => ({
+          title: " My Orders",
+
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.openDrawer()
+              }}
+            >
+              <Ionicons name={"menu-outline"} size={28} color={"#fff"} />
+            </TouchableOpacity>
+          ),
+        })}
+      />
     </OrdersNavigator.Navigator>
-    // </NavigationContainer>
   )
 }
 
@@ -75,6 +96,19 @@ const AdminNavigatorWrapper = () => {
       <AdminNavigator.Screen
         name="UserProducts"
         component={UserProductsScreen}
+        options={({ navigation }) => ({
+          title: "My Products",
+
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.openDrawer()
+              }}
+            >
+              <Ionicons name={"menu-outline"} size={28} color={"#fff"} />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <AdminNavigator.Screen name="EditProduct" component={EditProductScreen} />
     </AdminNavigator.Navigator>
@@ -84,18 +118,43 @@ const AdminNavigatorWrapper = () => {
 const ShopNavigator = () => {
   return (
     <NavigationContainer>
-      <ShopDrawerNavigator.Navigator initialRouteName="Products">
+      <ShopDrawerNavigator.Navigator
+        initialRouteName="Products"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <ShopDrawerNavigator.Screen
           name="Products"
           component={ProductsNavigatorWrapper}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+              <Ionicons name="shirt" size={25} color={Colors.primary} />
+            ),
+            drawerActiveTintColor: Colors.primary,
+          }}
         />
         <ShopDrawerNavigator.Screen
           name="Orders"
           component={OrdersNavigatorWrapper}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+              <Ionicons name="cube" size={25} color={Colors.primary} />
+            ),
+
+            drawerActiveTintColor: Colors.primary,
+          }}
         />
         <ShopDrawerNavigator.Screen
           name="Admin"
           component={AdminNavigatorWrapper}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+              <Ionicons name="person" size={25} color={Colors.primary} />
+            ),
+
+            drawerActiveTintColor: Colors.primary,
+          }}
         />
       </ShopDrawerNavigator.Navigator>
     </NavigationContainer>
