@@ -73,7 +73,7 @@ const OrdersNavigatorWrapper = () => {
         name="MyOrders"
         component={OrderScreen}
         options={({ navigation }) => ({
-          title: " My Orders",
+          title: " Your Orders",
 
           headerLeft: () => (
             <TouchableOpacity
@@ -97,7 +97,7 @@ const AdminNavigatorWrapper = () => {
         name="UserProducts"
         component={UserProductsScreen}
         options={({ navigation }) => ({
-          title: "My Products",
+          title: "Your Products",
 
           headerLeft: () => (
             <TouchableOpacity
@@ -108,9 +108,29 @@ const AdminNavigatorWrapper = () => {
               <Ionicons name={"menu-outline"} size={28} color={"#fff"} />
             </TouchableOpacity>
           ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("EditProduct")
+              }}
+            >
+              <Ionicons name={"add-circle-outline"} size={28} color={"#fff"} />
+            </TouchableOpacity>
+          ),
         })}
       />
-      <AdminNavigator.Screen name="EditProduct" component={EditProductScreen} />
+      <AdminNavigator.Screen
+        name="EditProduct"
+        component={EditProductScreen}
+        options={({ route }) => ({
+          title: route.params?.productId ? "Edit Product" : "Add Product",
+          headerRight: () => (
+            <TouchableOpacity onPress={route.params?.submit}>
+              <Ionicons name={"save-outline"} size={23} color={"#fff"} />
+            </TouchableOpacity>
+          ),
+        })}
+      />
     </AdminNavigator.Navigator>
   )
 }

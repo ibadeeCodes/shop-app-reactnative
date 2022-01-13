@@ -3,7 +3,7 @@ import { ScrollView, View, Text, Image, Button, StyleSheet } from "react-native"
 import { useSelector, useDispatch } from "react-redux"
 
 import Colors from "../../constants/Colors"
-import * as cartActions from "../../store/actions/ProductActions"
+import * as cartActions from "../../store/actions/CartActions"
 
 const ProductDetailScreen = (props) => {
   const productId = props.route.params.productId

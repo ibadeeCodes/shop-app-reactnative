@@ -9,10 +9,12 @@ import * as Font from "expo-font"
 import ShopNavigator from "./navigation/ShopNavigator"
 import ProductReducer from "./store/reducers/ProductReducer"
 import CartReducer from "./store/reducers/CartReducers"
+import OrderReducer from "./store/reducers/OrderReducer"
 
 const rootReducer = combineReducers({
   products: ProductReducer,
   cart: CartReducer,
+  orders: OrderReducer,
 })
 
 const store = createStore(rootReducer)
