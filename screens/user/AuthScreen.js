@@ -81,8 +81,7 @@ const AuthScreen = (props) => {
     setError(null)
     setIsLoading(true)
     try {
-      await dispatch(action)
-      props.navigation.navigate("Shop")
+      dispatch(action)
     } catch (err) {
       setError(err.message)
       setIsLoading(false)
@@ -104,7 +103,7 @@ const AuthScreen = (props) => {
   return (
     <KeyboardAvoidingView
       behavior="padding"
-      keyboardVerticalOffset={50}
+      keyboardVerticalOffset={10}
       style={styles.screen}
     >
       <LinearGradient colors={["#ffedff", "#ffe3ff"]} style={styles.gradient}>
@@ -158,10 +157,6 @@ const AuthScreen = (props) => {
       </LinearGradient>
     </KeyboardAvoidingView>
   )
-}
-
-AuthScreen.navigationOptions = {
-  headerTitle: "Authenticate",
 }
 
 const styles = StyleSheet.create({

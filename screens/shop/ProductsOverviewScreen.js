@@ -15,7 +15,7 @@ import * as productsActions from "../../store/actions/ProductActions"
 import Colors from "../../constants/Colors"
 
 const ProductsOverviewScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [error, setError] = useState()
 
@@ -26,7 +26,7 @@ const ProductsOverviewScreen = (props) => {
     setError(null)
     setIsRefreshing(true)
     try {
-      await dispatch(productsActions.fetchProducts())
+      dispatch(productsActions.fetchProducts())
     } catch (err) {
       setError(err.message)
     }
@@ -34,15 +34,14 @@ const ProductsOverviewScreen = (props) => {
   }, [dispatch, setIsLoading, setError])
 
   useEffect(() => {
-    const willFocusSub = props.navigation.addListener("willFocus", loadProducts)
+    const unsubscribe = props.navigation.addListener("focus", loadProducts)
 
     return () => {
-      willFocusSub.remove()
+      unsubscribe()
     }
   }, [loadProducts])
 
   useEffect(() => {
-    setIsLoading(true)
     loadProducts().then(() => {
       setIsLoading(false)
     })
