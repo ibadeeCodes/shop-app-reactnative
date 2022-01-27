@@ -1,4 +1,5 @@
 import Product from "../../models/product"
+import * as Notifications from "expo-notifications"
 
 export const DELETE_PRODUCT = "DELETE_PRODUCT"
 export const CREATE_PRODUCT = "CREATE_PRODUCT"
@@ -28,6 +29,7 @@ export const fetchProducts = () => {
           new Product(
             key,
             resData[key].ownerId,
+            resData[key].ownerPushToken,
             resData[key].title,
             resData[key].imageUrl,
             resData[key].description,
@@ -67,6 +69,20 @@ export const deleteProduct = (productId) => {
 
 export const createProduct = (title, description, imageUrl, price) => {
   return async (dispatch, getState) => {
+    // Save owner's push token into product.
+    let pushToken
+    let finalStatus
+    const { status: existingStatus } = await Notifications.getPermissionsAsync()
+    finalStatus = existingStatus
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync()
+      finalStatus = status
+    }
+    if (finalStatus !== "granted") {
+      pushToken = null
+    }
+    pushToken = (await Notifications.getExpoPushTokenAsync()).data
+
     const userId = getState().auth.userId
     const token = getState().auth.token
     // any async code you want!
@@ -83,6 +99,7 @@ export const createProduct = (title, description, imageUrl, price) => {
           imageUrl,
           price,
           ownerId: userId,
+          ownerPushToken: pushToken,
         }),
       }
     )
@@ -98,6 +115,7 @@ export const createProduct = (title, description, imageUrl, price) => {
         imageUrl,
         price,
         ownerId: userId,
+        pushToken: pushToken,
       },
     })
   }

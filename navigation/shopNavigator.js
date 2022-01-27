@@ -129,11 +129,6 @@ const AdminNavigatorWrapper = () => {
         component={EditProductScreen}
         options={({ route }) => ({
           title: route.params?.productId ? "Edit Product" : "Add Product",
-          headerRight: () => (
-            <TouchableOpacity onPress={route.params?.submit}>
-              <Ionicons name={"save-outline"} size={23} color={"#fff"} />
-            </TouchableOpacity>
-          ),
         })}
       />
     </AdminNavigator.Navigator>
@@ -148,7 +143,7 @@ export const AuthNavigatorWrapper = () => {
         name="Auth"
         component={AuthScreen}
         options={({ navigation }) => ({
-          title: "Authentication",
+          title: "Auth",
         })}
       />
     </AuthNavigator.Navigator>

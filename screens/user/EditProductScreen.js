@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, useLayoutEffect } from "react"
 import {
   View,
   ScrollView,
@@ -6,11 +6,11 @@ import {
   TextInput,
   StyleSheet,
   Platform,
+  TouchableOpacity,
 } from "react-native"
-// import { HeaderButtons, Item } from "react-navigation-header-buttons"
 import { useSelector, useDispatch } from "react-redux"
+import { Ionicons } from "@expo/vector-icons"
 
-// import HeaderButton from "../../components/UI/HeaderButton"
 import * as productsActions from "../../store/actions/ProductActions"
 
 const EditProductScreen = (props) => {
@@ -44,8 +44,16 @@ const EditProductScreen = (props) => {
     props.navigation.goBack()
   }, [dispatch, prodId, title, description, imageUrl, price])
 
-  useEffect(() => {
-    props.navigation.setParams({ submit: submitHandler })
+  useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableOpacity onPress={submitHandler}>
+            <Ionicons name={"save-outline"} size={23} color={"#fff"} />
+          </TouchableOpacity>
+        )
+      },
+    })
   }, [submitHandler])
 
   return (
